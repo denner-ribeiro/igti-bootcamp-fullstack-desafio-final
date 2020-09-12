@@ -3,7 +3,7 @@ import React from 'react';
 import './styles.css';
 
 export default function Filter(props) {
-  const { handleFilter } = props;
+  const { handleFilter, currentFilter } = props;
   // handleFilter
   const handleInputFilter = (event) => {
     const filter = event.target.value;
@@ -11,10 +11,18 @@ export default function Filter(props) {
   };
   return (
     <div id="divFilter">
-      <button className="waves-effect waves-light btn">
+      <button
+        className="waves-effect waves-light btn"
+        disabled={!!currentFilter}
+      >
         + NOVO LANÇAMENTO
       </button>
-      <input type="text" placeholder="Filtro" onInput={handleInputFilter} />
+      <input
+        type="text"
+        placeholder="Filtro"
+        value={currentFilter}
+        onChange={handleInputFilter}
+      />
     </div>
   );
 }

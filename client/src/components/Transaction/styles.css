@@ -30,6 +30,7 @@
   font-size: 1.5rem;
   text-align: right;
   font-family: Consolas;
+  margin-top: 2.5px;
 }
 
 #divTransaction #divButtons {
@@ -37,9 +38,10 @@
 }
 
 #divTransaction #divButtons i {
-  margin-left: 5px;
+  margin-left: 10px;
   font-size: 1.2rem;
   cursor: pointer;
+  margin-top: 5px;
 }
 
 .changedTheDay {

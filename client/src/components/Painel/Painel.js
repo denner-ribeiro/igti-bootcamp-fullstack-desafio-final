@@ -17,7 +17,7 @@ export default function Painel(props) {
       </div>
       <div>
         Despesas:
-        <span className="colorBad"> {formatNumber(expenses)}</span>
+        <span className="colorBad"> -{formatNumber(expenses)}</span>
       </div>
       <div>
         Saldo:

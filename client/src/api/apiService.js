@@ -44,6 +44,7 @@ function getAllPeriods() {
   return periods;
 }
 
+// Retorna o perido atual ou o informado no formato: yyyy-mm
 function getCurrentPeriod(currentPeriod) {
   if (!currentPeriod) {
     return `${CURRENT_YEAR}-${formatDate.zeroToLeft(CURRENT_MONTH)}`;
@@ -70,9 +71,26 @@ async function findAllForPeriod(period) {
   return res.data;
 }
 
+async function deleteTransacitonForId(id) {
+  try {
+    const res = await axios.delete(api.defaults.baseURL + RESOURCE + `/${id}`);
+
+    return {
+      delete: true,
+      res,
+    };
+  } catch (error) {
+    return {
+      delete: false,
+      error,
+    };
+  }
+}
+
 export {
   findAllForPeriod,
   getAllPeriods,
   getCurrentPeriod,
   getCurrentPeriodId,
+  deleteTransacitonForId,
 };

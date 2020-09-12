@@ -4,7 +4,7 @@ import './styles.css';
 import { formatNumber } from '../../helper/formatMoney';
 import { zeroToLeft } from '../../helper/formatDate';
 
-export default function Transaction({ transaction, changedTheDay }) {
+export default function Transaction({ transaction, changedTheDay, onDelete }) {
   const {
     _id,
     category,
@@ -16,14 +16,18 @@ export default function Transaction({ transaction, changedTheDay }) {
     type,
   } = transaction;
 
+  const handleClickDelete = (event) => {
+    onDelete(_id);
+  };
+
   return (
     <div
       id="divTransaction"
       className={changedTheDay ? 'row changedTheDay' : 'row'}
       style={
         type === '-'
-          ? { backgroundColor: '#f0a1a8' }
-          : { backgroundColor: '#a1f0dc' }
+          ? { backgroundColor: '#F0A1A8' }
+          : { backgroundColor: '#A1F0DC' }
       }
     >
       <div className="col s1">
@@ -38,7 +42,9 @@ export default function Transaction({ transaction, changedTheDay }) {
       </div>
       <div id="divButtons" className="col s2">
         <i className="material-icons">create</i>
-        <i className="material-icons">delete</i>
+        <i className="material-icons" onClick={handleClickDelete}>
+          delete
+        </i>
       </div>
     </div>
   );

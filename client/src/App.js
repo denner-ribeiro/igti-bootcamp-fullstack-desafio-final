@@ -1,32 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import Select from './components/Select/Select';
-import * as api from './api/apiService';
 import Transactions from './components/Transactions/Transactions';
+import * as api from './api/apiService';
 
+// Gero os periodos para o select e pego o periodo atual
 const PERIODS = api.getAllPeriods();
 const CURRENT_PERIOD_ID = api.getCurrentPeriodId(PERIODS);
 
 export default function App() {
   const [currentPeriodId, setCurrentPeriodId] = useState(CURRENT_PERIOD_ID);
-  const [transactions, setTransactions] = useState([]);
+  const [period, setPeriod] = useState('');
 
-  useEffect(() => {
-    // Ao carregar a página seleciona as transactions pelo mes/ano corrent
-    const currentPeriod = api.getCurrentPeriod();
-    getAllTransactions(currentPeriod);
-  }, []);
-
-  const getAllTransactions = async (currentPeriod) => {
-    const res = await api.findAllForPeriod(currentPeriod);
-    setTransactions(res.transactions);
-  };
-
+  // Quando é selecionado um periodo no select seta as variáveis de estado
+  // para repassar para o component Transacitons o periodo atual
   const handleCurrentPeriodIdChange = (currentId, period) => {
     setCurrentPeriodId(currentId);
-    // Caso altere o mes/ano ele busca as transactions novamente
-    const currentPeriod = api.getCurrentPeriod(period);
-    getAllTransactions(currentPeriod);
+    setPeriod(period);
   };
 
   return (
@@ -38,7 +28,7 @@ export default function App() {
         currentPeriodId={currentPeriodId}
         onSelectChange={handleCurrentPeriodIdChange}
       />
-      <Transactions transactions={transactions} />
+      <Transactions period={period} />
     </div>
   );
 }

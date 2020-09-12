@@ -71,7 +71,26 @@ transactionRouter.post('/', async (req, res) => {});
 transactionRouter.put('/', async (req, res) => {});
 
 // delete
-transactionRouter.delete('/', async (req, res) => {});
+transactionRouter.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const data = await TransactionModel.deleteOne({ _id: id });
+
+    if (!data.deletedCount) {
+      res.status(400).send({
+        error: 'Nenhuma transaction encontrada para exclusão!',
+      });
+      return;
+    }
+
+    res.json({
+      message: 'Transaction excluida com sucesso.',
+    });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
 
 // os calculos aparentemente devem ser feitos no front
 
