@@ -15,31 +15,26 @@ export default function Transactions(props) {
   const [expenses, setExpenses] = useState(0);
   const [balance, setBalance] = useState(0);
 
-  const calculateValuesPainel = (current) => {
+  useEffect(() => {
+    setCurrentTransactions([...transactions]);
+  }, [transactions]);
+
+  useEffect(() => {
     const calculateRevenuesExpenses = (type) => {
-      return current.reduce(
+      return currentTransactions.reduce(
         (acc, curr) => acc + (curr.type === type ? curr.value : 0),
         0
       );
     };
 
-    setLaunches(current.length);
+    setLaunches(currentTransactions.length);
 
     const totalRevenues = calculateRevenuesExpenses('+');
-    setRevenues(totalRevenues);
     const totalExpenses = calculateRevenuesExpenses('-');
+    setRevenues(totalRevenues);
     setExpenses(totalExpenses);
 
     setBalance(totalRevenues - totalExpenses);
-  };
-
-  useEffect(() => {
-    setCurrentTransactions([...transactions]);
-    calculateValuesPainel(transactions);
-  }, [transactions]);
-
-  useEffect(() => {
-    calculateValuesPainel(currentTransactions);
   }, [currentTransactions]);
 
   const handleFilter = (filter) => {
