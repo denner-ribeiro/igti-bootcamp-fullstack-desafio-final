@@ -1,0 +1,15 @@
+#divSelectPeriod {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#divSelectPeriod select {
+  margin: auto 5px;
+  width: 150px;
+  height: 38px;
+}
+
+#divSelectPeriod button {
+  width: 40px;
+}

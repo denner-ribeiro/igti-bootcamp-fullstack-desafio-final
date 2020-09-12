@@ -1,0 +1,28 @@
+#divPainel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex: 1;
+  padding: 4px;
+  border: 1px solid lightgray;
+  border-radius: 2px;
+  margin-top: 15px;
+  font-weight: 650;
+}
+
+#divPainel div span {
+  font-weight: 600;
+}
+
+#divPainel div:first-child span {
+  font-weight: normal;
+}
+
+.colorGod {
+  color: #26a69a;
+}
+
+.colorBad {
+  color: #c64c2d;
+}

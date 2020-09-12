@@ -1,0 +1,47 @@
+#divTransaction {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#divTransaction div:first-child {
+  width: 30px;
+  padding: 0;
+  font-weight: bold;
+  font-size: 1.2rem;
+  font-family: Consolas;
+}
+
+#divInfo {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+}
+
+#divInfo span:first-child {
+  font-weight: 700;
+}
+
+#divTransaction #spanValue {
+  font-size: 1.5rem;
+  text-align: right;
+  font-family: Consolas;
+}
+
+#divTransaction #divButtons {
+  text-align: right;
+}
+
+#divTransaction #divButtons i {
+  margin-left: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.changedTheDay {
+  margin-top: 15px;
+}

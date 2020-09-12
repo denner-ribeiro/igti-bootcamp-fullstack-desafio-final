@@ -1,0 +1,14 @@
+#divFilter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  margin: 40px auto;
+}
+
+#divFilter button {
+  width: 250px;
+  height: 38px;
+  margin-right: 10px;
+}
