@@ -9,19 +9,6 @@ import * as api from '../../api/apiService';
 
 import './styles.css';
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    width: '400px',
-  },
-  overlay: { zIndex: 1000 },
-};
-
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement(document.getElementById('root'));
 
@@ -172,7 +159,14 @@ export default function Transactions(props) {
         );
 
         let arrayTransactions = [...transactions];
-        arrayTransactions[index] = res;
+
+        // se trocar o mes ou ano ele tira o item do vetor
+        // caso contrário ele atualiza o item no vetor
+        if (arrayTransactions[index].yearMonth !== res.yearMonth) {
+          arrayTransactions.splice(index, 1);
+        } else {
+          arrayTransactions[index] = res;
+        }
 
         arrayTransactions = orderByTransactions(arrayTransactions);
         setTransactions(arrayTransactions);
@@ -283,7 +277,7 @@ export default function Transactions(props) {
         contentLabel="Example Modal"
       >
         <div id="divTitle">
-          <h1>Edição de lançamento</h1>
+          <h1>{isNew ? 'Inclusão de lançamento' : 'Edição de lançamento'}</h1>
           <button
             className="waves-effect waves-light btn red darken-4"
             onClick={closeModal}
@@ -303,7 +297,9 @@ export default function Transactions(props) {
                 onChange={handleRadioChange}
                 checked={radioSelected === '-'}
               />
-              <span>Despesa</span>
+              <span style={isNew ? { color: 'rgb(192, 57, 43)' } : {}}>
+                Despesa
+              </span>
             </label>
             <label>
               <input
@@ -314,7 +310,9 @@ export default function Transactions(props) {
                 onChange={handleRadioChange}
                 checked={radioSelected === '+'}
               />
-              <span>Receita</span>
+              <span style={isNew ? { color: 'rgb(39, 174, 96)' } : {}}>
+                Receita
+              </span>
             </label>
           </div>
           <div className="row">
@@ -420,3 +418,17 @@ export default function Transactions(props) {
     </div>
   );
 }
+
+// Estilização da modal
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    width: '400px',
+  },
+  overlay: { zIndex: 1000 },
+};
