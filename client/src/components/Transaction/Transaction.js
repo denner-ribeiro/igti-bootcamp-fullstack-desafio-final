@@ -4,20 +4,20 @@ import './styles.css';
 import { formatNumber } from '../../helper/formatMoney';
 import { zeroToLeft } from '../../helper/formatDate';
 
-export default function Transaction({ transaction, changedTheDay, onDelete }) {
-  const {
-    _id,
-    category,
-    description,
-    value,
-    day,
-    month,
-    year,
-    type,
-  } = transaction;
+export default function Transaction({
+  transaction,
+  changedTheDay,
+  onDelete,
+  handleOpenModal,
+}) {
+  const { _id, category, description, value, day, type } = transaction;
 
   const handleClickDelete = (event) => {
     onDelete(_id);
+  };
+
+  const handleClickOpenModal = (event) => {
+    handleOpenModal(transaction, false);
   };
 
   return (
@@ -41,7 +41,9 @@ export default function Transaction({ transaction, changedTheDay, onDelete }) {
         <span className="">{formatNumber(value)}</span>
       </div>
       <div id="divButtons" className="col s2">
-        <i className="material-icons">create</i>
+        <i className="material-icons" onClick={handleClickOpenModal}>
+          create
+        </i>
         <i className="material-icons" onClick={handleClickDelete}>
           delete
         </i>

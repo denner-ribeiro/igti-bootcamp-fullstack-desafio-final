@@ -4,23 +4,6 @@ const transactionRouter = express.Router();
 // verficar a necessidade de mudar a persistencia para o arquivo transactionService
 const TransactionModel = require('../models/TransactionModel');
 
-// transactionRouter.get('/periods', async (req, res) => {
-//   try {
-//     let periods = await TransactionModel.distinct('yearMonth');
-
-//     periods = periods.map((period, index) => {
-//       return {
-//         id: index,
-//         period,
-//       };
-//     });
-
-//     res.json(periods);
-//   } catch (error) {
-//     res.status(500).send({ message: error.message });
-//   }
-// });
-
 // findAllForPeriod
 transactionRouter.get('/', async (req, res) => {
   try {
@@ -61,14 +44,88 @@ transactionRouter.get('/', async (req, res) => {
   }
 });
 
-// filtro pela descrição
-transactionRouter.get('/', async (req, res) => {});
-
 // create
-transactionRouter.post('/', async (req, res) => {});
+transactionRouter.post('/', async (req, res) => {
+  try {
+    const {
+      description,
+      value,
+      category,
+      year,
+      month,
+      day,
+      yearMonth,
+      yearMonthDay,
+      type,
+    } = req.body;
+
+    const transaction = new TransactionModel({
+      description,
+      value,
+      category,
+      year,
+      month,
+      day,
+      yearMonth,
+      yearMonthDay,
+      type,
+    });
+
+    const data = await transaction.save();
+
+    res.json(data);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
 
 // update
-transactionRouter.put('/', async (req, res) => {});
+transactionRouter.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const {
+      description,
+      value,
+      category,
+      year,
+      month,
+      day,
+      yearMonth,
+      yearMonthDay,
+      type,
+    } = req.body;
+
+    const transaction = {
+      description,
+      value,
+      category,
+      year,
+      month,
+      day,
+      yearMonth,
+      yearMonthDay,
+      type,
+    };
+
+    const data = await TransactionModel.findByIdAndUpdate(
+      { _id: id },
+      transaction,
+      {
+        new: true,
+      }
+    );
+
+    if (!data) {
+      res.status(404).send('Nenhuma transaction encontrada com o id informado');
+      return;
+    }
+
+    res.json(data);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
 
 // delete
 transactionRouter.delete('/:id', async (req, res) => {

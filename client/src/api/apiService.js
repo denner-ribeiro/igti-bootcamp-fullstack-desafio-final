@@ -87,10 +87,39 @@ async function deleteTransacitonForId(id) {
   }
 }
 
+async function saveTransaction(transaction) {
+  try {
+    const res = await axios.post(api.defaults.baseURL + RESOURCE, transaction);
+
+    delete res.data.__v;
+
+    return res.data;
+  } catch (error) {
+    return { error: 'Erro ao salvar novo lançamento!' };
+  }
+}
+
+async function editTransaction(transaction, id) {
+  try {
+    const res = await axios.put(
+      api.defaults.baseURL + RESOURCE + `/${id}`,
+      transaction
+    );
+
+    delete res.data.__v;
+
+    return res.data;
+  } catch (error) {
+    return { error: 'Erro ao editar lançamento!' };
+  }
+}
+
 export {
   findAllForPeriod,
   getAllPeriods,
   getCurrentPeriod,
   getCurrentPeriodId,
   deleteTransacitonForId,
+  saveTransaction,
+  editTransaction,
 };
